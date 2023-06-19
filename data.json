@@ -1,0 +1,17 @@
+{
+    "encounter_options": [
+        "Random Encounters",
+        "Soft Reset",
+        "Masuda Method",
+        "PokeRadar",
+        "Chain Fishing",
+        "Friend Safari",
+        "Horde Hunting",
+        "Dex Nav",
+        "SOS Battles"
+    ],
+    "randomEncounter": [
+        ["1","2"],
+        ["3", "4"]
+    ]
+}
