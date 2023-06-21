@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/button'
 import Navigation from './Navigation'
 import { Box, Heading, Text } from '@chakra-ui/layout'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import data from '../data.json'
 import { Image } from '@chakra-ui/image'
 import { Spinner } from '@chakra-ui/spinner'
@@ -20,9 +20,15 @@ function App() {
   const [method, setMethod] = useState('');
   const [count, setCount] = useState(0);
   const [countMove, setCountMove] = useState(1);
+  const [key, setKey] = useState(0)
+  const [done, setDone] = useState([])
   const pokeName = useRef();
   const pokeImage = useRef();
   //const p = new PokeAPI;
+
+  useEffect(() => {
+    setKey(localStorage.getItem("key"))
+  })
 
   function getPokemon() {
     // Choose a hunting method
@@ -102,13 +108,11 @@ function App() {
   }
 
   function completeHunt() {
-    var name = pokeName.current.innerHTML;
-    var arr = JSON.parse(localStorage.getItem("completed_runs"));
-    if (arr == null) {
-      arr = [];
-    }
-    arr.push(name, count, method);
-    localStorage.setItem("completed_runs", JSON.stringify(arr));
+    console.log("Hunt Complete");
+    var name = pokeName.current.innerHTML.toLowerCase();
+    var dd = {id: key, name: name, count: count, method: method};
+    var old = JSON.parse(localStorage.getItem("done"));
+    console.log(old)
   }
 
   return (

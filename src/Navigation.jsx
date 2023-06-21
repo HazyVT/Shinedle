@@ -1,7 +1,8 @@
 import { Icon } from "@chakra-ui/icon";
-import { Box } from "@chakra-ui/layout";
+import { Image } from '@chakra-ui/image'
+import { Box, Text } from "@chakra-ui/layout";
 import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverlay, useDisclosure } from "@chakra-ui/react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { AiFillGithub, AiFillYoutube, AiOutlineTwitter } from 'react-icons/ai'
 import { BsStars } from 'react-icons/bs'
 
@@ -12,11 +13,15 @@ function Navigation() {
     const [iconHover, setIconHover] = useState(false);
     const {isOpen, onOpen, onClose} = useDisclosure();
     const iconRef = useRef();
+    const [completed, setCompleted] = useState(localStorage.getItem("comp"));
 
-
-
-
-
+    function getCompleted() {
+        var cmp = completed.split(',')
+        cmp.forEach(el => {
+            console.log(el.replace(/[^a-zA-Z0-9 ]/g, ""));
+        })
+    }
+    
     return (
         <Box display={'flex'} justifyContent={'space-between'}>
             <Box padding={2} ref={iconRef}>
@@ -26,7 +31,10 @@ function Navigation() {
                     onMouseLeave={() => setIconHover(false)}
                     color={iconHover ? "green" : "black"}
                     cursor={iconHover ? "pointer" : "default"}
-                    onClick={onOpen}
+                    onClick={() => {
+                        onOpen();
+                        getCompleted();
+                    }}
                 />
             </Box>
             <Box padding={2} display={'flex'} w='28' justifyContent={'space-around'}>
