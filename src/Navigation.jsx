@@ -1,6 +1,7 @@
 import { Icon } from "@chakra-ui/icon";
 import { Box } from "@chakra-ui/layout";
-import { useState } from "react";
+import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverlay, useDisclosure } from "@chakra-ui/react";
+import { useState, useRef } from "react";
 import { AiFillGithub, AiFillYoutube, AiOutlineTwitter } from 'react-icons/ai'
 import { BsStars } from 'react-icons/bs'
 
@@ -8,12 +9,24 @@ function Navigation() {
     const [gitHover, setGitHover] = useState(false);
     const [twitHover, setTwitHover] = useState(false);
     const [youHover, setYouHover] = useState(false);
+    const [iconHover, setIconHover] = useState(false);
+    const {isOpen, onOpen, onClose} = useDisclosure();
+    const iconRef = useRef();
+
+
+
+
 
     return (
         <Box display={'flex'} justifyContent={'space-between'}>
-            <Box padding={2}>
+            <Box padding={2} ref={iconRef}>
                 <Icon as={BsStars} 
                     w={12} h={12}
+                    onMouseEnter={() => setIconHover(true)}
+                    onMouseLeave={() => setIconHover(false)}
+                    color={iconHover ? "green" : "black"}
+                    cursor={iconHover ? "pointer" : "default"}
+                    onClick={onOpen}
                 />
             </Box>
             <Box padding={2} display={'flex'} w='28' justifyContent={'space-around'}>
@@ -45,6 +58,14 @@ function Navigation() {
                     cursor={youHover ? "pointer" : "default"}
                 />
             </Box>
+            <Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={iconRef} closeOnEsc='true'>
+                <DrawerOverlay />
+                <DrawerContent>
+                    <DrawerCloseButton right='0' left='5px'/>
+                    <DrawerBody>
+                    </DrawerBody>
+                </DrawerContent>
+            </Drawer>
         </Box>
     )
 }

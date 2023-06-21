@@ -1,16 +1,13 @@
 import { Button } from '@chakra-ui/button'
 import Navigation from './Navigation'
-import { Flex, Spacer } from '@chakra-ui/react'
 import { Box, Heading, Text } from '@chakra-ui/layout'
 import { useRef, useState } from 'react'
 import data from '../data.json'
 import { Image } from '@chakra-ui/image'
 import { Spinner } from '@chakra-ui/spinner'
-import { GiBirdTwitter, GiCheckeredFlag } from 'react-icons/gi'
 import { Icon } from '@chakra-ui/icon'
-import { AiFillAccountBook, AiFillGithub } from 'react-icons/ai'
-import { BsTwitter, BsYoutube } from 'react-icons/bs'
 import { VscDebugRestart } from 'react-icons/vsc'
+import { GiCheckeredFlag } from 'react-icons/gi'
 
 function App() {
 
@@ -19,12 +16,12 @@ function App() {
   const [countHover, setCountHover] = useState(false);
   const [minusHover, setMinusHover] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [game, setGame] = useState('')
-  const [method, setMethod] = useState('')
-  const [count, setCount] = useState(0)
-  const [countMove, setCountMove] = useState(1)
-  const pokeName = useRef()
-  const pokeImage = useRef()
+  const [game, setGame] = useState('');
+  const [method, setMethod] = useState('');
+  const [count, setCount] = useState(0);
+  const [countMove, setCountMove] = useState(1);
+  const pokeName = useRef();
+  const pokeImage = useRef();
   //const p = new PokeAPI;
 
   function getPokemon() {
@@ -104,6 +101,16 @@ function App() {
     setCount(0)
   }
 
+  function completeHunt() {
+    var name = pokeName.current.innerHTML;
+    var arr = JSON.parse(localStorage.getItem("completed_runs"));
+    if (arr == null) {
+      arr = [];
+    }
+    arr.push(name, count, method);
+    localStorage.setItem("completed_runs", JSON.stringify(arr));
+  }
+
   return (
     <>
       <Navigation />
@@ -115,8 +122,9 @@ function App() {
           display={'inline-block'}
           cursor={headHover ? "pointer" : "default"}
           onClick={() => window.location.reload()}
+          style={{userSelect: "none"}}
         >Shinedle</Heading>
-        <Text>Shiny Hunting Helper</Text>
+        <Text style={{userSelect: "none"}}>Shiny Hunting Helper</Text>
         <Button 
           margin={8} 
           colorScheme='green'
@@ -128,13 +136,12 @@ function App() {
         <Spinner thickness='4px' speed='0.65s' size='xl' emptyColor='gray.200' color='green'/>
       </Box>
       <Box display={loading ? "none" : "flex"} flexDir='column' justifyContent={'center'} alignItems={'center'}>
-        <Image ref={pokeImage} marginBottom={-2} onLoad={() => setLoading(false)} w={36}/>
-        <Text ref={pokeName} fontSize='24'></Text>
-        <Text>{game}</Text>
-        <Text>{method}</Text>
-        <Box marginTop={12} display={'flex'}>
+        <Image ref={pokeImage} marginBottom={-2} onLoad={() => setLoading(false)} w={36} style={{userSelect: "none", caretColor: "transparent"}}/>
+        <Text ref={pokeName} fontSize='24' style={{userSelect: "none"}}></Text>
+        <Text style={{userSelect: "none"}}>{game}</Text>
+        <Text style={{userSelect: "none"}}>{method}</Text>
+        <Box marginTop={12} display={pokeChosen ? "flex" : "none"}>
           <Heading size='xl'
-            display={pokeChosen ? "block" : 'none'} 
             onClick={() => setCount(count+countMove)}
             style={{caretColor: 'transparent', userSelect: 'none'}}
             onMouseEnter={() => setCountHover(true)}
@@ -142,7 +149,6 @@ function App() {
             cursor={countHover ? "pointer" : "default"}
           >{count}</Heading>
           <Icon as={VscDebugRestart} w={2}
-            display={pokeChosen ? "block" : "none"}
             onClick={() => setCount(count-countMove)}
             onMouseEnter={() => setMinusHover(true)}
             onMouseLeave={() => setMinusHover(false)}
@@ -150,9 +156,18 @@ function App() {
             color={minusHover ? 'green' : 'black'}
           />
         </Box>
-        <Box display='flex'>
-          <Button display={pokeChosen ? "block" : "none"} margin={2} onClick={() => getPokemon()}><Icon as={VscDebugRestart} /></Button>
-          <Button display={pokeChosen ? "block" : "none"} colorScheme='green' margin={2}><Icon as={GiCheckeredFlag} w={4} h={4}/></Button>
+        <Box display={pokeChosen ? "flex" : "none"}>
+          <Button 
+            margin={2} 
+            onClick={() => getPokemon()}>
+            <Icon as={VscDebugRestart} />
+          </Button>
+          <Button 
+            colorScheme='green' 
+            margin={2}
+            onClick={completeHunt}>
+            <Icon as={GiCheckeredFlag} w={4} h={4}/>
+          </Button>
         </Box>
       </Box>
     </>
