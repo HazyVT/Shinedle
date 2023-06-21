@@ -13,6 +13,8 @@ function App() {
   const [headHover, setHeadHover] = useState(false);
   const [pokeChosen, setPokeChosen] = useState(false);
   const [loading, setLoading] = useState(false)
+  const [game, setGame] = useState('')
+  const [method, setMethod] = useState('')
   const pokeName = useRef()
   const pokeImage = useRef()
   //const p = new PokeAPI;
@@ -21,24 +23,59 @@ function App() {
     // Choose a hunting method
     // If that method has a limited list, choose a pokemon from that list
     // Else choose a random pokemon
-
-    // REWORK
-    // choose a pokemon game
-    // Choose a pokemon from that game
-    // Show both
-    // For now, scarlet violet is only option
-    // More options to be added later
-
-    // REREWORK
-    // Randomly select a pokemon from the list
-    // Give timer for dialy reset and lock the user from rerolling
-    // Give counter and complete button
-    // On complete button 
     setLoading(true)
-    var pokemon_chosen = data.names[Math.floor(Math.random() * data.names.length)];
-    pokeName.current.innerHTML = pokemon_chosen
-    pokeImage.current.src = 'https://play.pokemonshowdown.com/sprites/gen5-shiny/' + pokemon_chosen.toLowerCase() + '.png'
-
+    var chosen_method = data.methods[Math.floor(Math.random() * data.methods.length)];
+    console.log(chosen_method)
+    switch (chosen_method) {
+      case "Horde Hunting X | Y":
+        var pokemon_list = data.horde_hunting_x_y;
+        var chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
+        pokeName.current.innerHTML = chosen_pokemon;
+        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/gen5-shiny/" + chosen_pokemon.toLowerCase() + '.png';
+        setGame("Pokemon XY")
+        setMethod('Horde Hunting')
+        break;
+      case "Horde Hunting OR | AS":
+        var pokemon_list = data.horde_hunting_or_as;
+        var chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
+        pokeName.current.innerHTML = chosen_pokemon;
+        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/gen5-shiny/" + chosen_pokemon.toLowerCase() + '.png';
+        setGame("Pokemon ORAS")
+        setMethod('Horde Hunting')
+        break;
+      case "Masuda Method":
+        var pokemon_list = data.masuda_method;
+        var chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
+        pokeName.current.innerHTML = chosen_pokemon;
+        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/gen5-shiny/" + chosen_pokemon.toLowerCase() + '.png';
+        setGame("Any Game")
+        setMethod('Masuda Method')
+        break; 
+      case "Chain Fishing X | Y":
+        var pokemon_list = data.chain_fishing_x_y;
+        var chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
+        pokeName.current.innerHTML = chosen_pokemon;
+        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/gen5-shiny/" + chosen_pokemon.toLowerCase() + '.png';
+        setGame("Pokemon XY")
+        setMethod('Chain Fishing')
+        break;
+      case "Chain Fishing OR | AS":
+        var pokemon_list = data.chain_fishing_or_as;
+        var chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
+        pokeName.current.innerHTML = chosen_pokemon;
+        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/gen5-shiny/" + chosen_pokemon.toLowerCase() + '.png';
+        setGame("Pokemon ORAS")
+        setMethod('Chain Fishing')
+        break;
+      case "Friend Safari":
+        var pokemon_list = data.friend_safari;
+        var chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
+        pokeName.current.innerHTML = chosen_pokemon;
+        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/gen5-shiny/" + chosen_pokemon.toLowerCase() + '.png';
+        setGame("Pokemon XY")
+        setMethod('Friend Safari')
+        break;
+    }
     setPokeChosen(true)
   }
 
@@ -51,6 +88,8 @@ function App() {
           onMouseLeave={() => setHeadHover(false)}
           color={headHover ? 'green' : 'black'}
           display={'inline-block'}
+          cursor={headHover ? "pointer" : "default"}
+          onClick={() => window.location.reload()}
         >Shinedle</Heading>
         <Text>Shiny Hunt Pokemon Daily</Text>
         <Button 
@@ -66,6 +105,8 @@ function App() {
       <Box display={loading ? "none" : "flex"} flexDir='column' justifyContent={'center'} alignItems={'center'}>
         <Image ref={pokeImage} marginBottom={-2} onLoad={() => setLoading(false)} w={36}/>
         <Text ref={pokeName} fontSize='24'></Text>
+        <Text>{game}</Text>
+        <Text>{method}</Text>
         <Button display={pokeChosen ? "block" : "none"} colorScheme='green' margin={2}><Icon as={GiCheckeredFlag} w={4} h={4}/></Button>
       </Box>
     </>
