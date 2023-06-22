@@ -26,9 +26,6 @@ function App() {
   const pokeImage = useRef();
   //const p = new PokeAPI;
 
-  useEffect(() => {
-    setKey(localStorage.getItem("key"))
-  })
 
   function getPokemon() {
     // Choose a hunting method
@@ -109,10 +106,7 @@ function App() {
 
   function completeHunt() {
     console.log("Hunt Complete");
-    var name = pokeName.current.innerHTML.toLowerCase();
-    var dd = {id: key, name: name, count: count, method: method};
-    var old = JSON.parse(localStorage.getItem("done"));
-    console.log(old)
+    getPokemon();
   }
 
   return (
