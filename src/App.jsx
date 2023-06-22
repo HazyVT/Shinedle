@@ -8,6 +8,7 @@ import { Spinner } from '@chakra-ui/spinner'
 import { Icon } from '@chakra-ui/icon'
 import { VscDebugRestart } from 'react-icons/vsc'
 import { GiCheckeredFlag } from 'react-icons/gi'
+import { Select } from '@chakra-ui/select'
 
 function App() {
 
@@ -22,6 +23,9 @@ function App() {
   const [countMove, setCountMove] = useState(1);
   const pokeName = useRef();
   const pokeImage = useRef();
+  const selRef = useRef();
+  const [all, setAll] = useState(data.names);
+  console.log(all);
   //const p = new PokeAPI;
 
 
@@ -107,6 +111,18 @@ function App() {
     getPokemon();
   }
 
+  function setPokemon() {
+    setLoading(true)
+    var chosen_pokemon = selRef.current.value;
+    pokeName.current.innerHTML = chosen_pokemon
+    var url = "https://play.pokemonshowdown.com/sprites/dex-shiny/" + chosen_pokemon.toLowerCase() + '.png';
+    url = url.replace(/\s/g, '');
+    pokeImage.current.src = url;
+    setCountMove(1)
+    setPokeChosen(true)
+    setCount(0)
+  }
+
   return (
     <>
       <Navigation />
@@ -127,6 +143,14 @@ function App() {
           onClick={() => getPokemon()}
           display={pokeChosen ? "none" : "inline-block"}
           >Start Hunt</Button>
+          <Text display={pokeChosen ? "none" : "block"}>Or</Text>
+          <Box display={pokeChosen ? "none" : "flex"} justifyContent={'center'} margin={8}>
+            <Select ref={selRef} placeholder={'Select Pokemon'} w={'30vw'} onChange={() => {
+              setPokemon()
+            }}>
+              {all.map((el) => <option key={el}>{el}</option>)}
+            </Select>
+          </Box>
       </Box>
       <Box display={loading ? "flex" : "none"} justifyContent={'center'} padding={4}>
         <Spinner thickness='4px' speed='0.65s' size='xl' emptyColor='gray.200' color='green'/>

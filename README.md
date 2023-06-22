@@ -8,7 +8,7 @@ A pokemon shiny hunting helper web app that randomly chooses a pokemon and metho
 |Counter|&check;|
 |Show Hunting Method|&check;|
 |Show Game|&check;|
-|Pokemon Selection|&cross;|
+|Pokemon Selection|&check;|
 |Hunt Timer|&cross;|
 |Saving Completed Hunts|&cross;|
 |Legends: Arceus Support|&cross;|
