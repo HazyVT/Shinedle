@@ -143,8 +143,8 @@ function App() {
           onClick={() => getPokemon()}
           display={pokeChosen ? "none" : "inline-block"}
           >Start Hunt</Button>
-          <Text display={pokeChosen ? "none" : "block"}>Or</Text>
-          <Box display={pokeChosen ? "none" : "flex"} justifyContent={'center'} margin={8}>
+          <Text display={pokeChosen ? "none" : "block"} style={{userSelect: "none"}}>Or</Text>
+          <Box display={pokeChosen ? "none" : "flex"} justifyContent={'center'} margin={8} style={{userSelect: "none"}}>
             <Select ref={selRef} placeholder={'Select Pokemon'} w={'30vw'} onChange={() => {
               setPokemon()
             }}>
