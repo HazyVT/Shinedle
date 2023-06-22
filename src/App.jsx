@@ -165,8 +165,8 @@ function App() {
             <Icon as={GiCheckeredFlag} w={4} h={4}/>
           </Button>
         </Box>
-        <Text pos='fixed' right={5} bottom={5}>Made By Hazy | Version 0.1.0</Text>
       </Box>
+      <Text pos='fixed' right={5} bottom={5}>Made By Hazy | Version 0.1.0</Text>
     </>
   )
 }
