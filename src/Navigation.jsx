@@ -28,33 +28,36 @@ function Navigation() {
                 />
             </Box>
             <Box padding={2} display={'flex'} w='28' justifyContent={'space-around'}>
+                <a target="_blank" rel="noreferrer" href="https://github.com/HazyVT">
                 <Icon as={AiFillGithub} 
                     w={6} h={6} 
                     fill={gitHover ? 'green' : 'gray'} 
                     onMouseEnter={() => setGitHover(true)}
                     onMouseLeave={() => setGitHover(false)}
                     transition={'ease-in-out .2s'}
-                    onClick={() => window.location.href = 'https://github.com/HazyVT'}
                     cursor={gitHover ? "pointer" : "default"}
                 />
+                </a>
+                <a href='https://twitter.com/HazyVT' rel="noreferrer" target="_blank">
                 <Icon as={AiOutlineTwitter} 
                     w={6} h={6}
                     fill={twitHover ? 'green' : 'gray'}
                     onMouseEnter={() => setTwitHover(true)}
                     onMouseLeave={() => setTwitHover(false)}
                     transition={'ease-in-out .2s'}
-                    onClick={() => window.location.href = 'https://twitter.com/HazyVT'}
                     cursor={twitHover ? "pointer" : "default"}
                 />
+                </a>
+                <a href='https://www.youtube.com/channel/UC0S1cmn-MBXUeUAwdmXQGEA' rel="noreferrer" target="_blank">
                 <Icon as={AiFillYoutube} 
                     w={6} h={6}
                     fill={youHover ? 'green' : 'gray'}
                     onMouseEnter={() => setYouHover(true)}
                     onMouseLeave={() => setYouHover(false)}
                     transition={'ease-in-out .2s'}
-                    onClick={() => window.location.href = 'https://www.youtube.com/channel/UC0S1cmn-MBXUeUAwdmXQGEA'}
                     cursor={youHover ? "pointer" : "default"}
                 />
+                </a>
             </Box>
             <Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={iconRef} closeOnEsc='true'>
                 <DrawerOverlay />

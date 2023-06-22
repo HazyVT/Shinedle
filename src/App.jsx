@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/button'
 import Navigation from './Navigation'
 import { Box, Heading, Text } from '@chakra-ui/layout'
-import { useEffect, useRef, useState } from 'react'
+import {useRef, useState } from 'react'
 import data from '../data.json'
 import { Image } from '@chakra-ui/image'
 import { Spinner } from '@chakra-ui/spinner'
@@ -20,8 +20,6 @@ function App() {
   const [method, setMethod] = useState('');
   const [count, setCount] = useState(0);
   const [countMove, setCountMove] = useState(1);
-  const [key, setKey] = useState(0)
-  const [done, setDone] = useState([])
   const pokeName = useRef();
   const pokeImage = useRef();
   //const p = new PokeAPI;
@@ -167,6 +165,7 @@ function App() {
             <Icon as={GiCheckeredFlag} w={4} h={4}/>
           </Button>
         </Box>
+        <Text pos='fixed' right={5} bottom={5}>Made By Hazy | Version 0.1.0</Text>
       </Box>
     </>
   )
