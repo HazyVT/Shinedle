@@ -9,10 +9,10 @@ A pokemon shiny hunting helper web app that randomly chooses a pokemon and metho
 |Show Hunting Method|&check;|
 |Show Game|&check;|
 |Pokemon Selection|&check;|
-|Hunt Timer|&cross;|
+|Hunt Timer|&check;|
 |Saving Completed Hunts|&cross;|
 |Legends: Arceus Support|&cross;|
 |Let's Go Support|&cross;|
 
-### Next Feature Being Developed: **Hunt Timer**
+### Next Feature Being Developed: **Let's Go Support**
 Send any questions over to https://twitter.com/hazyvt

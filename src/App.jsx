@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/button'
 import Navigation from './Navigation'
 import { Box, Heading, Text } from '@chakra-ui/layout'
-import {useRef, useState } from 'react'
+import {useRef, useState, useEffect } from 'react'
 import data from '../data.json'
 import { Image } from '@chakra-ui/image'
 import { Spinner } from '@chakra-ui/spinner'
@@ -9,6 +9,57 @@ import { Icon } from '@chakra-ui/icon'
 import { VscDebugRestart } from 'react-icons/vsc'
 import { GiCheckeredFlag } from 'react-icons/gi'
 import { Select } from '@chakra-ui/select'
+import { useStopwatch } from 'react-timer-hook'
+
+// eslint-disable-next-line react/prop-types
+function HuntTimer({pokeChosen, loading}) {
+  const {
+    seconds,
+    minutes,
+    hours,
+    reset,
+  } = useStopwatch({ autoStart: true });
+  const [secs, setSecs] = useState("");
+  const [mins, setMins] = useState("");
+  const [hrs, setHrs] = useState("");
+
+
+  useEffect(() => {
+    // Reseting the timer on new hunt
+    if (loading) {
+      reset()
+    }
+    
+    // Timer Formatting
+    if (minutes > 0 && seconds < 10) {
+      setSecs("0" + seconds);
+    } else {
+      setSecs(seconds);
+    }
+    if (minutes == 0) {
+      setMins("");
+    } else if (minutes < 10) {
+      setMins("0" + minutes + ":");
+    } else {
+      setMins(minutes)
+    }
+    if (hours == 0) {
+      setHrs("");
+    }else if (hours < 10) {
+      setHrs("0" + hours + ":");
+    } else {
+      setHrs(hours);
+    }
+  }, [loading, minutes, seconds, hours, reset])
+
+  return (
+    <Box style={{textAlign: 'center', userSelect: "none"}} display={pokeChosen ? "block" : "none"} margin={4}>
+      <Box fontSize={48}>
+        <span>{hrs}</span><span>{mins}</span><span>{secs}</span>
+      </Box>
+    </Box>
+  );
+}
 
 function App() {
 
@@ -24,10 +75,8 @@ function App() {
   const pokeName = useRef();
   const pokeImage = useRef();
   const selRef = useRef();
+  // eslint-disable-next-line no-unused-vars
   const [all, setAll] = useState(data.names);
-  console.log(all);
-  //const p = new PokeAPI;
-
 
   function getPokemon() {
     // Choose a hunting method
@@ -160,7 +209,8 @@ function App() {
         <Text ref={pokeName} fontSize='24' style={{userSelect: "none"}}></Text>
         <Text style={{userSelect: "none"}}>{game}</Text>
         <Text style={{userSelect: "none"}}>{method}</Text>
-        <Box marginTop={12} display={pokeChosen ? "flex" : "none"}>
+        <HuntTimer pokeChosen={pokeChosen} loading={loading}/>
+        <Box marginTop={0} display={pokeChosen ? "flex" : "none"}>
           <Heading size='xl'
             onClick={() => setCount(count+countMove)}
             style={{caretColor: 'transparent', userSelect: 'none'}}
@@ -190,7 +240,7 @@ function App() {
           </Button>
         </Box>
       </Box>
-      <Text pos='fixed' right={5} bottom={5}>Made By Hazy | Version 0.1.0</Text>
+      <Text pos='fixed' right={5} bottom={5}>Made By Hazy | Version 0.1.2</Text>
     </>
   )
 }
