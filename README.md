@@ -13,6 +13,7 @@ A pokemon shiny hunting helper web app that randomly chooses a pokemon and metho
 |Saving Completed Hunts|&cross;|
 |Legends: Arceus Support|&cross;|
 |Let's Go Support|&cross;|
+|Daily Hunting Challenges|&cross;|
 
 ### Next Feature Being Developed: **Let's Go Support**
 Send any questions over to https://twitter.com/hazyvt
