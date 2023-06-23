@@ -2,6 +2,8 @@
 
 A pokemon shiny hunting helper web app that randomly chooses a pokemon and method of hunting and allows users to track their hunts in real time.
 
+## http://shinedle.mosalim.site
+
 |Feature|Included|
 |:-------|--------:|
 |Random Pokemon Selection| &check;|
