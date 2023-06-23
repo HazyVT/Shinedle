@@ -14,5 +14,5 @@ A pokemon shiny hunting helper web app that randomly chooses a pokemon and metho
 |Legends: Arceus Support|&cross;|
 |Let's Go Support|&cross;|
 
-### Next Feature Being Developed: **Pokemon Selection**
+### Next Feature Being Developed: **Hunt Timer**
 Send any questions over to https://twitter.com/hazyvt
