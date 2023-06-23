@@ -150,6 +150,15 @@ function App() {
         setMethod('Mass Outbreak')
         setCountMove(1)
         break;
+      case "Catch Combo":
+        pokemon_list = data.letsgo;
+        chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
+        pokeName.current.innerHTML = chosen_pokemon;
+        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/dex-shiny/" + chosen_pokemon.toLowerCase() + '.png';
+        setGame("Pokemon Let's Go Pikachu | Eevee");
+        setMethod("Catch Combo");
+        setCountMove(1);
+        break;
     }
     setPokeChosen(true)
     setCount(0)
@@ -240,7 +249,7 @@ function App() {
           </Button>
         </Box>
       </Box>
-      <Text pos='fixed' right={5} bottom={5}>Made By Hazy | Version 0.1.2</Text>
+      <Text pos='fixed' right={5} bottom={5}>Made By Hazy | Version 0.1.3</Text>
     </>
   )
 }
