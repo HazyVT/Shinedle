@@ -68,6 +68,7 @@ function App() {
   const [countHover, setCountHover] = useState(false);
   const [minusHover, setMinusHover] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [ state, setState ] = useState(false);
   const [game, setGame] = useState('');
   const [method, setMethod] = useState('');
   const [count, setCount] = useState(0);
@@ -83,6 +84,7 @@ function App() {
     // If that method has a limited list, choose a pokemon from that list
     // Else choose a random pokemon
     setLoading(true)
+    setState(false)
     var chosen_method = data.methods[Math.floor(Math.random() * data.methods.length)];
     console.log(chosen_method)
     var pokemon_list, chosen_pokemon;
@@ -159,6 +161,14 @@ function App() {
         setMethod("Catch Combo");
         setCountMove(1);
         break;
+      case "Mass Outbreak Arceus":
+        pokemon_list = data.mass_outbreak_arceus;
+        chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
+        pokeName.current.innerHTML = chosen_pokemon;
+        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/dex-shiny/" + chosen_pokemon.toLowerCase() + '.png';
+        setGame("Pokemon Legends Arceus");
+        setMethod("Mass Outbreak");
+        setCountMove(1);
     }
     setPokeChosen(true)
     setCount(0)
@@ -171,6 +181,7 @@ function App() {
 
   function setPokemon() {
     setLoading(true)
+    setState(true);
     var chosen_pokemon = selRef.current.value;
     pokeName.current.innerHTML = chosen_pokemon
     var url = "https://play.pokemonshowdown.com/sprites/dex-shiny/" + chosen_pokemon.toLowerCase() + '.png';
@@ -179,6 +190,10 @@ function App() {
     setCountMove(1)
     setPokeChosen(true)
     setCount(0)
+  }
+
+  function returnToHomepage() {
+    window.location.reload()
   }
 
   return (
@@ -238,7 +253,7 @@ function App() {
         <Box display={pokeChosen ? "flex" : "none"}>
           <Button 
             margin={2} 
-            onClick={() => getPokemon()}>
+            onClick={state ? returnToHomepage : getPokemon}>
             <Icon as={VscDebugRestart} />
           </Button>
           <Button 
@@ -249,7 +264,7 @@ function App() {
           </Button>
         </Box>
       </Box>
-      <Text pos='fixed' right={5} bottom={5}>Made By Hazy | Version 0.1.3</Text>
+      <Text pos='fixed' right={5} bottom={5}>Made By Hazy | Version 0.1.4</Text>
     </>
   )
 }
