@@ -12,6 +12,15 @@ import { Select } from '@chakra-ui/select'
 import { useStopwatch } from 'react-timer-hook'
 
 // eslint-disable-next-line react/prop-types
+function isToday (date) {  
+  const now = new Date()
+
+    return date.getDate() === now.getDate() &&
+         date.getMonth() === now.getMonth() &&
+         date.getFullYear() === now.getFullYear()
+}
+
+// eslint-disable-next-line react/prop-types
 function HuntTimer({pokeChosen, loading}) {
   const {
     seconds,
@@ -29,7 +38,7 @@ function HuntTimer({pokeChosen, loading}) {
     if (loading) {
       reset()
     }
-    
+
     // Timer Formatting
     if (minutes > 0 && seconds < 10) {
       setSecs("0" + seconds);
@@ -69,15 +78,44 @@ function App() {
   const [minusHover, setMinusHover] = useState(false)
   const [loading, setLoading] = useState(false)
   const [ state, setState ] = useState(false);
+  const [ done, setDone ] =  useState(false);
   const [game, setGame] = useState('');
   const [method, setMethod] = useState('');
+  const [ name, setName ] = useState('');
+  const [ image, setImage ] = useState('')
   const [count, setCount] = useState(0);
+  const [ resetHrs, setResetHrs ] = useState(0);
+  const [ resetMins, setResetMins ] = useState(0);
+  const [ resetSecs, setResetSecs ] = useState(0);
   const [countMove, setCountMove] = useState(1);
   const pokeName = useRef();
   const pokeImage = useRef();
   const selRef = useRef();
   // eslint-disable-next-line no-unused-vars
   const [all, setAll] = useState(data.names);
+
+  useEffect(() => {
+
+    var lsCheck = JSON.parse(localStorage.getItem('hunt'));
+    if (lsCheck != null) {
+      var date = new Date(lsCheck.timestamp);
+      if (isToday(date) == true) {
+        setDone(true);
+        setName(lsCheck.name);
+        setCount(lsCheck.count);
+        setGame(lsCheck.game);
+        setMethod(lsCheck.method)
+        setImage("https://play.pokemonshowdown.com/sprites/dex-shiny/" + name.toLowerCase() + ".png")
+        var d = new Date();
+        var h = d.getHours();
+        var m = d.getMinutes();
+        var s = d.getSeconds();
+        setResetHrs(24 - h);
+        setResetMins(60 - m);
+        setResetSecs(60 - s);
+      }
+    }
+  })
 
   function getPokemon() {
     // Choose a hunting method
@@ -176,7 +214,10 @@ function App() {
 
   function completeHunt() {
     console.log("Hunt Complete");
-    getPokemon();
+    var now = Date.now();
+    var hunt = {name: pokeName.current.innerHTML , count: count , timestamp: now, game: game, method: method}
+    localStorage.setItem('hunt', JSON.stringify(hunt));
+    returnToHomepage();
   }
 
   function setPokemon() {
@@ -199,7 +240,7 @@ function App() {
   return (
     <>
       <Navigation />
-      <Box textAlign={'center'}>
+      <Box textAlign={'center'} display={done ? 'none' : 'block'}>
         <Heading size='3xl'
           onMouseEnter={() => setHeadHover(true)}
           onMouseLeave={() => setHeadHover(false)}
@@ -231,8 +272,8 @@ function App() {
       <Box display={loading ? "none" : "flex"} flexDir='column' justifyContent={'center'} alignItems={'center'}>
         <Image ref={pokeImage} marginBottom={-2} onLoad={() => setLoading(false)} w={36} style={{userSelect: "none", caretColor: "transparent"}}/>
         <Text ref={pokeName} fontSize='24' style={{userSelect: "none"}}></Text>
-        <Text style={{userSelect: "none"}}>{game}</Text>
-        <Text style={{userSelect: "none"}}>{method}</Text>
+        <Text style={{userSelect: "none"}} display={done ? 'none' : 'block'}>{game}</Text>
+        <Text style={{userSelect: "none"}} display={done ? 'none' : 'block'}>{method}</Text>
         <HuntTimer pokeChosen={pokeChosen} loading={loading}/>
         <Box marginTop={0} display={pokeChosen ? "flex" : "none"}>
           <Heading size='xl'
@@ -263,8 +304,20 @@ function App() {
             <Icon as={GiCheckeredFlag} w={4} h={4}/>
           </Button>
         </Box>
+        <Box display={done ? 'flex' : 'none'} flexDir='column' justifyContent={'center'} alignItems={'center'}>
+          <Image src={image} marginBottom={-2} onLoad={() => setLoading(false)} w={36} style={{userSelect: "none", caretColor: "transparent"}}/>
+          <Text fontSize='24' style={{userSelect: "none"}}>{name}</Text>
+          <Text fontSize='12'>{game}</Text>
+          <Text fontSize='12'>{method}</Text>
+          <Heading size='xl'>{count}</Heading>
+          <br />
+          <br />
+          <Heading size='md'>Congrats on the completed hunt!</Heading>
+          <Heading size='md'>Time Until Reset:</Heading>
+          <Text>{resetHrs}:{resetMins}:{resetSecs}</Text>
+        </Box>
       </Box>
-      <Text pos='fixed' right={5} bottom={5}>Made By Hazy | Version 0.1.4</Text>
+      <Text pos='fixed' right={5} bottom={5}>Made By Hazy | Version 0.1.5</Text>
     </>
   )
 }

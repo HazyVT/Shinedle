@@ -13,6 +13,7 @@ function Navigation() {
     const {isOpen, onOpen, onClose} = useDisclosure();
     const iconRef = useRef();
 
+
     return (
         <Box display={'flex'} justifyContent={'space-between'}>
             <Box padding={2} ref={iconRef}>
