@@ -4,6 +4,7 @@ A pokemon shiny hunting helper web app that randomly chooses a pokemon and metho
 
 ## http://shinedle.mosalim.site
 
+## Alpha Features
 |Feature|Included|
 |:-------|--------:|
 |Random Pokemon Selection| &check;|
@@ -12,10 +13,12 @@ A pokemon shiny hunting helper web app that randomly chooses a pokemon and metho
 |Show Game|&check;|
 |Pokemon Selection|&check;|
 |Hunt Timer|&check;|
-|Saving Completed Hunts|&cross;|
+|Saving Completed Hunts|&check;|
 |Legends: Arceus Support|&check;|
 |Let's Go Support|&check;|
 |Daily Hunting Challenges|&check;|
 
-### Next Feature Being Developed: **Saving Completed Hunts**
+### All alpha features have been implemented
+### Moving onto beta features and bugfixes
+
 Send any questions over to https://twitter.com/hazyvt

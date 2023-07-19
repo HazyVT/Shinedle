@@ -88,6 +88,7 @@ function App() {
   const [ resetMins, setResetMins ] = useState(0);
   const [ resetSecs, setResetSecs ] = useState(0);
   const [countMove, setCountMove] = useState(1);
+  const [ previousHunt] = useState([]);
   const pokeName = useRef();
   const pokeImage = useRef();
   const selRef = useRef();
@@ -217,7 +218,19 @@ function App() {
     var now = Date.now();
     var hunt = {name: pokeName.current.innerHTML , count: count , timestamp: now, game: game, method: method}
     localStorage.setItem('hunt', JSON.stringify(hunt));
+    saveHunt();
     returnToHomepage();
+  }
+
+  function saveHunt() {
+    var currentHunt = {name: pokeName.current.innerHTML, count: count, game: game, method: method};
+    var lsHunts = JSON.parse(localStorage.getItem('completedHunts'));
+    for (var x = 0; x < lsHunts.length; x++ ) {
+      var hunt = {name: lsHunts[x].name, count: lsHunts[x].count, game: lsHunts[x].game, method: lsHunts[x].method};
+      previousHunt.push(hunt);
+    }
+    previousHunt.push(currentHunt);
+    localStorage.setItem('completedHunts', JSON.stringify(previousHunt));
   }
 
   function setPokemon() {
@@ -317,7 +330,7 @@ function App() {
           <Text>{resetHrs}:{resetMins}:{resetSecs}</Text>
         </Box>
       </Box>
-      <Text pos='fixed' right={5} bottom={5}>Made By Hazy | Version 0.1.5</Text>
+      <Text pos='fixed' right={5} bottom={5}>Made By Hazy | Version 0.1.6</Text>
     </>
   )
 }

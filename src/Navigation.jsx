@@ -1,6 +1,6 @@
 import { Icon } from "@chakra-ui/icon";
 import { Box } from "@chakra-ui/layout";
-import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverlay, useDisclosure } from "@chakra-ui/react";
+import { Drawer, DrawerBody, DrawerContent, DrawerOverlay, useDisclosure, Text, Image } from "@chakra-ui/react";
 import { useState, useRef } from "react";
 import { AiFillGithub, AiFillYoutube, AiOutlineTwitter } from 'react-icons/ai'
 import { BsStars } from 'react-icons/bs'
@@ -10,9 +10,28 @@ function Navigation() {
     const [twitHover, setTwitHover] = useState(false);
     const [youHover, setYouHover] = useState(false);
     const [iconHover, setIconHover] = useState(false);
+    const [opened, setOpened] = useState(false);
     const {isOpen, onOpen, onClose} = useDisclosure();
     const iconRef = useRef();
+    const [hunts] = useState([]);
 
+
+    function getHunts() {
+        if (opened == false) {
+            var hunt = JSON.parse(localStorage.getItem('completedHunts'))
+            for (var x = 0; x < hunt.length; x++) {
+                var nameLowerCase = hunt[x].name.toLowerCase();
+                hunts.push(<Box key={x} backgroundColor={"green.200"} margin={2} padding={4} borderRadius={8} display={'flex'} flexDir='column' justifyContent={'center'} alignItems={'center'} textAlign={'center'}>
+                    <Image src={'https://play.pokemonshowdown.com/sprites/dex-shiny/' + nameLowerCase + '.png'} />
+                    <Text>{hunt[x].name}</Text>
+                    <Text>{hunt[x].count}</Text>
+                    <Text>{hunt[x].game}</Text>
+                    <Text>{hunt[x].method}</Text>
+                </Box>)
+            }
+            setOpened(true);
+        }
+    }
 
     return (
         <Box display={'flex'} justifyContent={'space-between'}>
@@ -25,6 +44,7 @@ function Navigation() {
                     cursor={iconHover ? "pointer" : "default"}
                     onClick={() => {
                         onOpen();
+                        getHunts();
                     }}
                 />
             </Box>
@@ -63,8 +83,8 @@ function Navigation() {
             <Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={iconRef} closeOnEsc='true'>
                 <DrawerOverlay />
                 <DrawerContent>
-                    <DrawerCloseButton right='0' left='5px'/>
                     <DrawerBody>
+                        {hunts}
                     </DrawerBody>
                 </DrawerContent>
             </Drawer>
