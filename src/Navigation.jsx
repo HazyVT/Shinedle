@@ -57,6 +57,7 @@ function Navigation() {
                     onMouseLeave={() => setGitHover(false)}
                     transition={'ease-in-out .2s'}
                     cursor={gitHover ? "pointer" : "default"}
+                    name="github"
                 />
                 </a>
                 <a href='https://twitter.com/HazyVT' rel="noreferrer" target="_blank">
@@ -67,6 +68,7 @@ function Navigation() {
                     onMouseLeave={() => setTwitHover(false)}
                     transition={'ease-in-out .2s'}
                     cursor={twitHover ? "pointer" : "default"}
+                    name="twitter"
                 />
                 </a>
                 <a href='https://www.youtube.com/channel/UC0S1cmn-MBXUeUAwdmXQGEA' rel="noreferrer" target="_blank">
@@ -77,6 +79,7 @@ function Navigation() {
                     onMouseLeave={() => setYouHover(false)}
                     transition={'ease-in-out .2s'}
                     cursor={youHover ? "pointer" : "default"}
+                    name="youtube"
                 />
                 </a>
             </Box>

@@ -268,7 +268,7 @@ function App() {
         <Spinner thickness='4px' speed='0.65s' size='xl' emptyColor='gray.200' color='green'/>
       </Box>
       <Box display={loading ? "none" : "flex"} flexDir='column' justifyContent={'center'} alignItems={'center'}>
-        <Image ref={pokeImage} marginBottom={-2} onLoad={() => setLoading(false)} w={36} style={{userSelect: "none", caretColor: "transparent"}}/>
+        <Image alt='Pokemon Image' ref={pokeImage} marginBottom={-2} onLoad={() => setLoading(false)} w={36} style={{userSelect: "none", caretColor: "transparent"}}/>
         <Text ref={pokeName} fontSize='24' style={{userSelect: "none"}}></Text>
         <Text style={{userSelect: "none"}} display={done ? 'none' : 'block'}>{game}</Text>
         <Text style={{userSelect: "none"}} display={done ? 'none' : 'block'}>{method}</Text>
@@ -303,7 +303,7 @@ function App() {
           </Button>
         </Box>
         <Box display={done ? 'flex' : 'none'} flexDir='column' justifyContent={'center'} alignItems={'center'}>
-          <Image src={image} marginBottom={-2} onLoad={() => setLoading(false)} w={36} style={{userSelect: "none", caretColor: "transparent"}}/>
+          <Image alt='image' src={image} marginBottom={-2} onLoad={() => setLoading(false)} w={36} style={{userSelect: "none", caretColor: "transparent"}}/>
           <Text fontSize='24' style={{userSelect: "none"}}>{name}</Text>
           <Text fontSize='12'>{game}</Text>
           <Text fontSize='12'>{method}</Text>
