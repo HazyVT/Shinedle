@@ -93,7 +93,7 @@ function App() {
   const pokeImage = useRef();
   const selRef = useRef();
   // eslint-disable-next-line no-unused-vars
-  const [all, setAll] = useState(data.names);
+  const [all] = useState(data.names);
 
   useEffect(() => {
 
@@ -116,7 +116,7 @@ function App() {
         setResetSecs(60 - s);
       }
     }
-  })
+  }, [name])
 
   function getPokemon() {
     // Choose a hunting method
@@ -125,14 +125,13 @@ function App() {
     setLoading(true)
     setState(false)
     var chosen_method = data.methods[Math.floor(Math.random() * data.methods.length)];
+    const link = "https://play.pokemonshowdown.com/sprites/dex-shiny/";
     console.log(chosen_method)
     var pokemon_list, chosen_pokemon;
     switch (chosen_method) {
       case "Horde Hunting X | Y":
         pokemon_list = data.horde_hunting_x_y;
         chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
-        pokeName.current.innerHTML = chosen_pokemon;
-        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/dex-shiny/" + chosen_pokemon.toLowerCase() + '.png';
         setGame("Pokemon XY")
         setMethod('Horde Hunting')
         setCountMove(5)
@@ -140,8 +139,6 @@ function App() {
       case "Horde Hunting OR | AS":
         pokemon_list = data.horde_hunting_or_as;
         chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
-        pokeName.current.innerHTML = chosen_pokemon;
-        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/dex-shiny/" + chosen_pokemon.toLowerCase() + '.png';
         setGame("Pokemon ORAS")
         setMethod('Horde Hunting')
         setCountMove(5)
@@ -149,8 +146,6 @@ function App() {
       case "Masuda Method":
         pokemon_list = data.masuda_method;
         chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
-        pokeName.current.innerHTML = chosen_pokemon;
-        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/dex-shiny/" + chosen_pokemon.toLowerCase() + '.png';
         setGame("Any Game")
         setMethod('Masuda Method')
         setCountMove(1)
@@ -158,8 +153,6 @@ function App() {
       case "Chain Fishing X | Y":
         pokemon_list = data.chain_fishing_x_y;
         chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
-        pokeName.current.innerHTML = chosen_pokemon;
-        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/dex-shiny/" + chosen_pokemon.toLowerCase() + '.png';
         setGame("Pokemon XY")
         setMethod('Chain Fishing')
         setCountMove(1)
@@ -167,8 +160,6 @@ function App() {
       case "Chain Fishing OR | AS":
         pokemon_list = data.chain_fishing_or_as;
         chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
-        pokeName.current.innerHTML = chosen_pokemon;
-        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/dex-shiny/" + chosen_pokemon.toLowerCase() + '.png';
         setGame("Pokemon ORAS")
         setMethod('Chain Fishing')
         setCountMove(1)
@@ -176,8 +167,6 @@ function App() {
       case "Friend Safari":
         pokemon_list = data.friend_safari;
         chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
-        pokeName.current.innerHTML = chosen_pokemon;
-        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/dex-shiny/" + chosen_pokemon.toLowerCase() + '.png';
         setGame("Pokemon XY")
         setMethod('Friend Safari')
         setCountMove(1)
@@ -185,8 +174,6 @@ function App() {
       case "Mass Outbreak":
         pokemon_list = data.mass_outbreak;
         chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
-        pokeName.current.innerHTML = chosen_pokemon;
-        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/dex-shiny/" + chosen_pokemon.toLowerCase() + '.png';
         setGame("Pokemon Scarlet | Violet")
         setMethod('Mass Outbreak')
         setCountMove(1)
@@ -194,8 +181,6 @@ function App() {
       case "Catch Combo":
         pokemon_list = data.letsgo;
         chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
-        pokeName.current.innerHTML = chosen_pokemon;
-        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/dex-shiny/" + chosen_pokemon.toLowerCase() + '.png';
         setGame("Pokemon Let's Go Pikachu | Eevee");
         setMethod("Catch Combo");
         setCountMove(1);
@@ -203,12 +188,12 @@ function App() {
       case "Mass Outbreak Arceus":
         pokemon_list = data.mass_outbreak_arceus;
         chosen_pokemon = pokemon_list[Math.floor(Math.random() * pokemon_list.length)];
-        pokeName.current.innerHTML = chosen_pokemon;
-        pokeImage.current.src = "https://play.pokemonshowdown.com/sprites/dex-shiny/" + chosen_pokemon.toLowerCase() + '.png';
         setGame("Pokemon Legends Arceus");
         setMethod("Mass Outbreak");
-        setCountMove(1);
     }
+    pokeName.current.innerHTML = chosen_pokemon;
+    pokeImage.current.src = link + chosen_pokemon.toLowerCase() + '.png';
+    setCountMove(1);
     setPokeChosen(true)
     setCount(0)
   }
