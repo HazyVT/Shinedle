@@ -251,13 +251,15 @@ function App() {
         <Text style={{userSelect: "none"}}>Shiny Hunting Helper</Text>
         <Button 
           margin={8} 
-          colorScheme='green'
+          bgColor='green.600'
+          color='white'
+          _hover={{bgColor: "green.700"}}
           onClick={() => getPokemon()}
           display={pokeChosen ? "none" : "inline-block"}
           >Start Hunt</Button>
           <Text display={pokeChosen ? "none" : "block"} style={{userSelect: "none"}}>Or</Text>
           <Box display={pokeChosen ? "none" : "flex"} justifyContent={'center'} margin={8} style={{userSelect: "none"}}>
-            <Select ref={selRef} placeholder={'Select Pokemon'} w={'30vw'} onChange={() => {
+            <Select aria-label='pokemon selector' ref={selRef} placeholder={'Select Pokemon'} w={'30vw'} onChange={() => {
               setPokemon()
             }}>
               {all.map((el) => <option key={el}>{el}</option>)}
@@ -296,7 +298,7 @@ function App() {
             <Icon as={VscDebugRestart} />
           </Button>
           <Button 
-            colorScheme='green' 
+            colorScheme='green'
             margin={2}
             onClick={completeHunt}>
             <Icon as={GiCheckeredFlag} w={4} h={4}/>

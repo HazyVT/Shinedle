@@ -49,7 +49,7 @@ function Navigation() {
                 />
             </Box>
             <Box padding={2} display={'flex'} w='28' justifyContent={'space-around'}>
-                <a target="_blank" rel="noreferrer" href="https://github.com/HazyVT">
+                <a target="_blank" rel="noreferrer" href="https://github.com/HazyVT" aria-label="github link">
                 <Icon as={AiFillGithub} 
                     w={6} h={6} 
                     fill={gitHover ? 'green' : 'gray'} 
@@ -60,7 +60,7 @@ function Navigation() {
                     name="github"
                 />
                 </a>
-                <a href='https://twitter.com/HazyVT' rel="noreferrer" target="_blank">
+                <a href='https://twitter.com/HazyVT' rel="noreferrer" target="_blank" aria-label="twitter link">
                 <Icon as={AiOutlineTwitter} 
                     w={6} h={6}
                     fill={twitHover ? 'green' : 'gray'}
@@ -71,7 +71,7 @@ function Navigation() {
                     name="twitter"
                 />
                 </a>
-                <a href='https://www.youtube.com/channel/UC0S1cmn-MBXUeUAwdmXQGEA' rel="noreferrer" target="_blank">
+                <a href='https://www.youtube.com/channel/UC0S1cmn-MBXUeUAwdmXQGEA' rel="noreferrer" target="_blank" aria-label="youtube link">
                 <Icon as={AiFillYoutube} 
                     w={6} h={6}
                     fill={youHover ? 'green' : 'gray'}
